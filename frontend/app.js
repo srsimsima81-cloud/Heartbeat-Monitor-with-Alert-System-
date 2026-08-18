@@ -1,16 +1,12 @@
 /* ============================================================
    BEATNEX — Heartbeat Monitor with Alert System
-   Frontend telemetry dashboard
    ============================================================ */
 
 const CONFIG = {
-  // Backend/bridge endpoint.
-  // Keep this ready for the ESP32/Wokwi bridge.
+  
   API_URL: "http://localhost:3000/api/telemetry/latest",
 
-  // Used only when no bridge is connected.
-  // IMPORTANT: these are NOT fake dashboard values.
-  // Dashboard remains NO SIGNAL until real telemetry arrives.
+  
   POLL_INTERVAL: 1000,
 
   MAX_HISTORY: 60,
@@ -250,7 +246,7 @@ function updateStatusTheme() {
    ============================================================ */
 
 function updateBpmDisplay() {
-  const bpm = formatBpm(state.bpm);
+  const bpm = formatBpm(dashboardBPM);
 
   setText("bpmValue", bpm);
   setText("waveBpm", bpm);
@@ -352,9 +348,7 @@ function updateMeter() {
 
   if (!marker) return;
 
-  /*
-    Meter represents approximately 40–150 BPM.
-  */
+  
 
   if (
     state.bpm === null ||
@@ -381,9 +375,7 @@ function updateMeter() {
   marker.style.opacity = "1";
 }
 
-/* ============================================================
-   TELEMETRY PROCESSING
-   ============================================================ */
+
 
 /* ============================================================
    BPM TELEMETRY
@@ -401,9 +393,6 @@ if (data.bpm !== undefined && data.bpm !== null) {
   ) {
     incomingBPM = parsedBPM;
 
-    /*
-      Backend data.bpm is the source of truth.
-    */
 
     state.bpm = parsedBPM;
     dashboardBPM = parsedBPM;
@@ -489,18 +478,7 @@ if (heroRing) {
   }
 }
 
-  /*
-    Only store actual received BPM values.
-    No dummy values are generated here.
-  */
-
-/*
-  Store a visual trend point based on the latest
-  real backend BPM.
-
-  The small wobble is ONLY a visual HRV-style effect.
-  It never replaces or changes dashboardBPM.
-*/
+  
 
 if (
   Number.isFinite(dashboardBPM) &&
@@ -599,7 +577,7 @@ if (
 
   }
 
-  // Anything else
+  
   else {
 
     card.classList.add("no-signal");
@@ -674,6 +652,7 @@ if (alertIcon) {
 function resetDashboard() {
   state.connected = false;
   state.bpm = null;
+  dashboardBPM = null;
   state.simulatedBpm = null;
   state.status = "NO_SIGNAL";
   state.alert = false;
@@ -732,24 +711,15 @@ function getECGGlow() {
 }
 
 
-/*
-  Returns the vertical ECG shape for one heartbeat cycle.
 
-  x = progress through one heartbeat
-  0 → 1
-*/
 function ecgShape(progress) {
 
-  /*
-    Baseline
-  */
+  
 
   let y = 0;
 
 
-  /*
-    P wave
-  */
+  
 
   if (progress >= 0.10 && progress < 0.20) {
 
@@ -761,10 +731,7 @@ function ecgShape(progress) {
   }
 
 
-  /*
-    Q wave
-  */
-
+  
   else if (progress >= 0.285 && progress < 0.315) {
 
     const p =
@@ -775,9 +742,7 @@ function ecgShape(progress) {
   }
 
 
-  /*
-    R wave — main heartbeat spike
-  */
+  
 
   else if (progress >= 0.315 && progress < 0.35) {
 
@@ -789,9 +754,7 @@ function ecgShape(progress) {
   }
 
 
-  /*
-    S wave
-  */
+  
 
   else if (progress >= 0.35 && progress < 0.385) {
 
@@ -803,9 +766,7 @@ function ecgShape(progress) {
   }
 
 
-  /*
-    T wave
-  */
+  
 
   else if (progress >= 0.52 && progress < 0.68) {
 
@@ -821,11 +782,7 @@ function ecgShape(progress) {
 }
 
 
-/*
-  Draw a continuous ECG line.
 
-  The actual BPM determines the heartbeat frequency.
-*/
 
 function drawWaveform() {
 
@@ -905,10 +862,7 @@ function drawWaveform() {
 
   const amplitude = height * 0.30;
 
-  /*
-    Keep your existing status colors.
-  */
-
+  
   const color = getECGColor();
 
   const glow = getECGGlow();
@@ -1013,9 +967,6 @@ function drawWaveform() {
     `${dashboardBPM.toFixed(1)} BPM`;
 }
 }
-/*
-  No-signal display.
-*/
 
 function drawNoSignalWave(
   ctx,
@@ -1027,10 +978,7 @@ function drawNoSignalWave(
     height * 0.56;
 
 
-  /*
-    Subtle flat line
-  */
-
+  
   ctx.beginPath();
 
   ctx.moveTo(
@@ -1053,10 +1001,7 @@ function drawNoSignalWave(
   ctx.stroke();
 
 
-  /*
-    Waiting text
-  */
-
+  
   ctx.save();
 
   ctx.fillStyle =
@@ -1088,13 +1033,7 @@ function drawNoSignalWave(
 }
 
 
-/*
-  Continuous animation loop.
 
-  This does not generate telemetry.
-  It only redraws the visual representation
-  of the latest real BPM.
-*/
 
 function animateECG() {
 
@@ -1107,9 +1046,7 @@ function animateECG() {
 }
 
 
-/*
-  Start ECG animation once.
-*/
+
 
 function initializeECG() {
 
@@ -1150,11 +1087,7 @@ function drawTrendChart() {
 
   ctx.clearRect(0, 0, width, height);
 
-  /*
-    ----------------------------------------------------------
-    NO TELEMETRY
-    ----------------------------------------------------------
-  */
+  
 
   if (
     !state.history ||
@@ -1183,12 +1116,7 @@ function drawTrendChart() {
     return;
   }
 
-  /*
-    ----------------------------------------------------------
-    GRAPH PADDING
-    ----------------------------------------------------------
-  */
-
+  
   const padding = {
     top: 22,
     right: 18,
@@ -1353,10 +1281,7 @@ function drawTrendChart() {
     ----------------------------------------------------------
     GRAPH COLOR
     ----------------------------------------------------------
-    
-    IMPORTANT:
-    Your existing NORMAL = green
-    Your existing ALERT = red
+
   */
 
   const isNormal =
@@ -1411,9 +1336,7 @@ function drawTrendChart() {
     );
   }
 
-  /*
-    Build smooth curve.
-  */
+  
 
   function buildTrendPath() {
 
@@ -1662,10 +1585,7 @@ function drawTrendChart() {
 
     } else {
 
-      /*
-        Smooth-ish curve using quadratic
-        interpolation between telemetry points.
-      */
+    
 
       const previous =
         points[index - 1];
@@ -1773,10 +1693,7 @@ function drawTrendChart() {
 
   points.forEach((point, index) => {
 
-    /*
-      Only highlight the newest point.
-    */
-
+    
     if (
       index !== points.length - 1
     ) {
@@ -1921,10 +1838,7 @@ function addEvent(title, description, type = "normal") {
 
   list.prepend(item);
 
-  /*
-    Keep the event stream compact.
-  */
-
+  
   while (list.children.length > 30) {
     list.removeChild(list.lastElementChild);
   }
@@ -1999,12 +1913,7 @@ if (sidebarProgress) {
     processTelemetry(data);
 
   } catch (error) {
-    /*
-      Do NOT display fake telemetry.
-
-      The dashboard simply shows that the bridge is
-      unavailable.
-    */
+    
 
     if (state.connected) {
       state.connected = false;
@@ -2166,26 +2075,7 @@ function initializeResize() {
    ============================================================ */
 
 function initializeTelemetry() {
-  /*
-    The frontend attempts to read the backend/bridge.
-
-    It does NOT create artificial BPM values.
-
-    Your ESP32/Wokwi output should eventually reach:
-
-    GET http://localhost:3000/api/telemetry
-
-    Example payload:
-
-    {
-      "bpm": 73.4,
-      "simulated_bpm": 73.4,
-      "status": "NORMAL",
-      "alert": false,
-      "sensor_raw": 1245,
-      "uptime_ms": 15289
-    }
-  */
+  
 
   fetchTelemetry();
 

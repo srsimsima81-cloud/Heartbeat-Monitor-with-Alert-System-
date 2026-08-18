@@ -706,11 +706,7 @@ button {
 }
 
 
-/*
- IMPORTANT:
- The image covers the WHOLE hero.
- It is NOT applied to .hero-content.
-*/
+
 
 .hero-background {
 
@@ -732,11 +728,7 @@ button {
 }
 
 
-/*
- Dark gradient:
- left side = darkest
- right side = image remains visible
-*/
+
 
 .hero-overlay {
 
@@ -757,12 +749,7 @@ button {
 }
 
 
-/* subtle bottom darkening */
 
-/* ============================================================
-   HERO OVERLAY
-   Dark mainly behind the text, image remains visible on right
-============================================================ */
 
 .hero-overlay {
 
@@ -772,27 +759,24 @@ button {
 
   z-index: -2;
 
-  /*
-     Strong darkness behind title
-     Gradually fades toward the right
-  */
+  
 
   background:
     linear-gradient(
       90deg,
 
-      /* LEFT — text area */
+      
       rgba(5, 8, 14, 0.96) 0%,
 
       rgba(5, 8, 14, 0.90) 18%,
 
-      /* transition */
+      
       rgba(5, 8, 14, 0.70) 38%,
 
-      /* image starts becoming visible */
+      
       rgba(5, 8, 14, 0.35) 55%,
 
-      /* RIGHT — mostly original image */
+      
       rgba(5, 8, 14, 0.08) 75%,
 
       rgba(5, 8, 14, 0.00) 100%
@@ -800,12 +784,7 @@ button {
 }
 
 
-/*
-   Very subtle bottom fade.
 
-   This prevents the bottom of the image
-   from becoming too bright without hiding it.
-*/
 
 .hero-overlay::after {
 
@@ -965,9 +944,6 @@ button {
 }
 
 
-/*
- Second line = RED
-*/
 
 .hero h1 span {
 
