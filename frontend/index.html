@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="description"
+    content="BeatNex - Heartbeat Monitor with Alert System"
+  />
+
+  <meta name="theme-color" content="#07090f" />
+
+  <title>BeatNex — Heartbeat Monitor with Alert System</title>
+
+  <!-- Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-mark">
+          <span class="pulse-line"></span>
+        </div>
+
+        <div class="brand-copy">
+          <div class="brand-name">
+            Beat<span>Nex</span>
+          </div>
+
+          <div class="brand-sub">
+            Heartbeat Monitor
+          </div>
+        </div>
+
+      </div>
+
+
+      <nav class="nav">
+
+        <div class="nav-label">
+          MONITOR
+        </div>
+
+        <a
+          href="#overview"
+          class="nav-item active"
+        >
+          <span class="nav-icon">⌁</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a
+          href="#telemetry"
+          class="nav-item"
+        >
+          <span class="nav-icon">◌</span>
+          <span>Telemetry</span>
+        </a>
+
+        <a
+          href="#analytics"
+          class="nav-item"
+        >
+          <span class="nav-icon">⌁</span>
+          <span>Analytics</span>
+        </a>
+
+
+        <div class="nav-label">
+          SYSTEM
+        </div>
+
+        <a
+          href="#events"
+          class="nav-item"
+        >
+          <span class="nav-icon">◫</span>
+          <span>Activity</span>
+        </a>
+
+        <a
+          href="#system"
+          class="nav-item"
+        >
+          <span class="nav-icon">⚙</span>
+          <span>System</span>
+        </a>
+
+      </nav>
+
+
+      <!-- Sidebar status -->
+
+      <div class="sidebar-bottom">
+
+        <div class="system-card">
+
+          <div class="system-card-head">
+
+            <span
+              class="live-dot"
+              id="sidebarStatusDot"
+            ></span>
+
+            <span id="sidebarSystemStatus">
+              SYSTEM OFFLINE
+            </span>
+
+          </div>
+
+          <div
+            class="system-card-title"
+            id="sidebarSystemTitle"
+          >
+            Waiting for telemetry
+          </div>
+
+          <div
+            class="system-card-meta"
+            id="sidebarSystemMeta"
+          >
+            ESP32 / Wokwi simulation
+          </div>
+
+          <div class="mini-progress">
+            <span id="sidebarProgress"></span>
+          </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+          BeatNex v1.0 · Embedded Prototype
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+      <!-- ===================================================
+           TOP NAVIGATION
+      ==================================================== -->
+
+      <header class="topbar">
+
+        <button
+          class="icon-button mobile-menu"
+          id="menuBtn"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+
+        <div class="breadcrumb">
+
+          <span>BeatNex</span>
+
+          <b>/</b>
+
+          <strong>Dashboard</strong>
+
+        </div>
+
+
+        <div class="top-actions">
+
+          <div
+            class="connection-pill"
+            id="connectionPill"
+          >
+
+            <span
+              class="status-dot"
+              id="connectionDot"
+            ></span>
+
+            <span id="connectionText">
+              Wokwi bridge offline
+            </span>
+
+          </div>
+
+
+          <button
+            class="connect-button"
+            id="connectBtn"
+          >
+            Connect
+          </button>
+
+
+          <button
+            class="icon-button"
+            id="notifyBtn"
+            aria-label="System status"
+            title="System status"
+          >
+            ◔
+          </button>
+
+
+          <div class="profile">
+
+            <div class="avatar">
+              BN
+            </div>
+
+            <div class="profile-copy">
+
+              <strong>
+                Operator
+              </strong>
+
+              <span>
+                Embedded Lab
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- ===================================================
+           DASHBOARD CONTENT
+      ==================================================== -->
+
+      <div
+        class="content"
+        id="overview"
+      >
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+          <!-- Full background image -->
+
+          <div class="hero-background"></div>
+
+          <!-- Dark readability overlay -->
+
+          <div class="hero-overlay"></div>
+
+          <!-- Technical grid -->
+
+          <div class="hero-grid"></div>
+
+          <!-- Scan effect -->
+
+          <div class="hero-scan"></div>
+
+
+          <!-- Hero content -->
+
+          <div class="hero-content">
+
+            <div class="eyebrows">
+
+              <span class="badge accent">
+                HEARTBEAT MONITOR
+              </span>
+
+              <span class="badge">
+                LIVE MONITORING
+              </span>
+
+            </div>
+
+
+            <h1>
+              Heartbeat Monitor
+              <span>with Alert System</span>
+            </h1>
+
+
+            <p>
+              Real-time heartbeat telemetry from an ESP32-based
+              monitoring prototype, with BPM classification and
+              threshold-based alert detection.
+            </p>
+
+
+            <div class="hero-meta">
+
+              <span>
+
+                <i
+                  class="green-dot"
+                  id="heroStatusDot"
+                ></i>
+
+                <b id="heroSystemStatus">
+                  Streaming telemetry
+                </b>
+
+              </span>
+
+
+              <span>
+                Last packet
+                <b id="heroUpdated">
+                  —
+                </b>
+              </span>
+
+
+              <span>
+                JSON telemetry
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Hero live BPM -->
+
+          <div class="hero-hud">
+
+            <div class="hud-ring" id="heroRing">
+  <div class="hud-center">
+    <strong id="heroBpm">--</strong>
+    <span>BPM</span>
+  </div>
+</div>
+
+            <div class="hud-readout">
+
+              <span>
+                STATUS
+              </span>
+
+              <strong
+                id="heroStatus"
+                class="status-neutral"
+              >
+                NO SIGNAL
+              </strong>
+
+              <small>
+                LOW &lt; 60 · NORMAL 60–100 · HIGH &gt; 100
+              </small>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             KPI CARDS
+        ================================================== -->
+
+        <section
+          class="kpi-grid"
+          aria-label="Key metrics"
+        >
+
+
+          <!-- BPM -->
+
+        <article class="kpi-card primary" id="heartRateCard">
+
+  <div class="kpi-top">
+    <span>Heart rate</span>
+    <span class="metric-icon">♥</span>
+  </div>
+
+  <div
+    class="metric-value"
+    id="bpmValue"
+  >
+    —
+  </div>
+
+  <div class="metric-unit">
+    BPM
+  </div>
+
+  <div class="metric-foot">
+
+    <span id="bpmTrend">
+      —
+    </span>
+
+    <span
+      class="metric-tag"
+      id="bpmTag"
+    >
+      —
+    </span>
+
+  </div>
+
+</article>
+<!-- STATUS -->
+
+<article class="kpi-card">
+
+  <div class="kpi-top">
+
+    <span>
+      System status
+    </span>
+
+    <span
+      class="metric-icon neutral"
+      id="statusIcon"
+    >
+      ◉
+    </span>
+
+  </div>
+
+  <div
+    class="metric-value text"
+    id="statusValue"
+  >
+    NO SIGNAL
+  </div>
+
+  <div class="metric-foot">
+
+    <span>
+      BPM classification
+    </span>
+
+    <span
+      class="status-chip"
+      id="statusChip"
+    >
+      —
+    </span>
+
+  </div>
+
+</article>
+
+         <!-- ALERT -->
+
+<article class="kpi-card">
+
+  <div class="kpi-top">
+
+    <span>Alert state</span>
+
+    <span
+      class="metric-icon neutral"
+      id="alertIcon"
+    >
+      !
+    </span>
+
+  </div>
+
+  <div
+    class="metric-value text"
+    id="alertValue"
+  >
+    —
+  </div>
+
+  <div class="metric-foot">
+
+    <span id="alertDescription">
+      No telemetry
+    </span>
+
+    <span
+      class="alert-dot"
+      id="alertDot"
+    ></span>
+
+  </div>
+
+</article>
+
+
+        
+        </section>
+
+
+        <!-- =================================================
+             PRIMARY TELEMETRY
+        ================================================== -->
+
+        <section
+          class="section-grid"
+          id="telemetry"
+        >
+
+
+          <!-- WAVEFORM -->
+
+          <article class="panel monitor-panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <div class="eyebrow">
+                  PRIMARY TELEMETRY
+                </div>
+
+                <h3>
+                  Live heartbeat waveform
+                </h3>
+
+              </div>
+
+
+              <div class="panel-actions">
+
+                <span
+                  class="live-label"
+                  id="streamStatus"
+                >
+
+                  <i class="green-dot"></i>
+
+                  LIVE
+
+                </span>
+
+
+                <button
+                  class="ghost-btn"
+                  id="clearChart"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="wave-card">
+
+              <div class="wave-grid"></div>
+
+              <canvas
+                id="waveCanvas"
+              ></canvas>
+
+
+              <div class="wave-overlay">
+
+                <span>
+                  REAL-TIME BPM
+                </span>
+
+                <strong id="waveBpm">
+                  —
+                </strong>
+
+              </div>
+
+
+              <div class="wave-axis">
+
+                <span>
+                  HISTORY
+                </span>
+
+                <span>
+                  LIVE
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- Telemetry strip -->
+
+            <div class="telemetry-strip">
+
+              <div>
+
+                <span>
+                  RAW SENSOR
+                </span>
+
+                <strong id="rawValue">
+                  —
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  UPTIME
+                </span>
+
+                <strong id="uptimeValue">
+                  —
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  PACKET
+                </span>
+
+                <strong id="packetValue">
+                  —
+                </strong>
+
+              </div>
+
+
+              
+            </div>
+
+          </article>
+
+
+          <!-- DEVICE STATUS -->
+
+          <article class="panel state-panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <div class="eyebrow">
+                  DEVICE STATE
+                </div>
+
+                <h3>
+                  Monitoring status
+                </h3>
+
+              </div>
+
+
+              <span
+                class="state-badge"
+                id="stateBadge"
+              >
+                NO SIGNAL
+              </span>
+
+            </div>
+
+
+            <div
+              class="state-visual"
+              id="stateVisual"
+            >
+
+              <div class="state-pulse"></div>
+
+              <div
+                class="state-icon"
+                id="stateIcon"
+              >
+                ♥
+              </div>
+
+            </div>
+
+
+            <div class="state-details">
+
+              <div>
+
+                <span>
+                  Classification
+                </span>
+
+                <strong id="classDetail">
+                  No signal
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  Alert output
+                </span>
+
+                <strong id="outputDetail">
+                  —
+                </strong>
+
+              </div>
+
+
+              
+
+
+              <div>
+
+                <span>
+                  Simulation
+                </span>
+
+                <strong>
+                  Wokwi
+                </strong>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- =================================================
+             ANALYTICS
+        ================================================== -->
+
+        <section
+          class="section-grid lower-grid"
+          id="analytics"
+        >
+
+
+          <!-- BPM TREND -->
+
+          <article class="panel analytics-panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <div class="eyebrow">
+                  ANALYTICS
+                </div>
+
+                <h3>
+                  BPM trend
+                </h3>
+
+              </div>
+
+
+              <div class="range-buttons">
+
+                <button class="range active">
+                  LIVE
+                </button>
+
+                <button
+                  class="range"
+                  disabled
+                >
+                  1H
+                </button>
+
+                <button
+                  class="range"
+                  disabled
+                >
+                  24H
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="chart-wrap">
+
+              <canvas
+                id="trendCanvas"
+              ></canvas>
+
+            </div>
+
+
+            <div class="legend">
+
+              <span>
+
+                <i class="legend-line"></i>
+
+                Measured BPM
+
+              </span>
+
+
+              <span>
+
+                <i class="legend-dash low"></i>
+
+                Low threshold 60
+
+              </span>
+
+
+              <span>
+
+                <i class="legend-dash high"></i>
+
+                High threshold 100
+
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- THRESHOLDS -->
+
+          <article class="panel threshold-panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <div class="eyebrow">
+                  THRESHOLD ENGINE
+                </div>
+
+                <h3>
+                  Alert boundaries
+                </h3>
+
+              </div>
+
+
+              <span
+                class="engine-status"
+                id="engineStatus"
+              >
+                WAITING
+              </span>
+
+            </div>
+
+
+            <div class="threshold-meter">
+
+              <div class="meter-track">
+
+                <span class="meter-zone low"></span>
+
+                <span class="meter-zone normal"></span>
+
+                <span class="meter-zone high"></span>
+
+                <span
+                  class="meter-marker"
+                  id="meterMarker"
+                ></span>
+
+              </div>
+
+
+              <div class="meter-labels">
+
+                <span>
+                  40
+                </span>
+
+                <span>
+                  60
+                </span>
+
+                <span>
+                  100
+                </span>
+
+                <span>
+                  150 BPM
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="threshold-list">
+
+              <div>
+
+                <span class="legend-dot low"></span>
+
+                <div>
+
+                  <strong>
+                    LOW ALERT
+                  </strong>
+
+                  <small>
+                    BPM below 60
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <span class="legend-dot normal"></span>
+
+                <div>
+
+                  <strong>
+                    NORMAL
+                  </strong>
+
+                  <small>
+                    60–100 BPM
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <div>
+
+                <span class="legend-dot high"></span>
+
+                <div>
+
+                  <strong>
+                    HIGH ALERT
+                  </strong>
+
+                  <small>
+                    BPM above 100
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <p class="disclaimer">
+              Educational simulation thresholds only.
+              This prototype is not a medical diagnostic device.
+            </p>
+
+          </article>
+
+        </section>
+
+
+        <!-- =================================================
+             ACTIVITY
+        ================================================== -->
+
+        <section
+          class="panel events-panel"
+          id="events"
+        >
+
+          <div class="panel-head">
+
+            <div>
+
+              <div class="eyebrow">
+                SYSTEM ACTIVITY
+              </div>
+
+              <h3>
+                Live event stream
+              </h3>
+
+            </div>
+
+
+            <button
+              class="ghost-btn"
+              id="clearEvents"
+            >
+              Clear log
+            </button>
+
+          </div>
+
+
+          <div
+            class="event-list"
+            id="eventList"
+          >
+
+            <div class="empty-events">
+              Telemetry stream active
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer
+          class="footer"
+          id="system"
+        >
+
+          <span>
+            BeatNex · Heartbeat monitoring prototype
+          </span>
+
+          <span>
+            Educational use only · Not for medical decisions
+          </span>
+
+        </footer>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- Toast -->
+
+  <div
+    class="toast-container"
+    id="toastContainer"
+  ></div>
+
+
+  <script src="app.js"></script>
+
+</body>
+</html>
