@@ -376,8 +376,10 @@ Heartbeat-Monitor-with-Alert-System/
 │   ├── style.css
 │   └── app.js
 │
-├── diagram.json
-├── sketch.ino
+├── wokwi
+|   ├── diagram.json
+|    ├── sketch.ino
+|    ├── libraries.txt
 ├── package.json
 ├── package-lock.json
 ├── .gitignore
